@@ -194,6 +194,77 @@ GROUP BY idade;
 
 
 
+-- HAVING e ORDER BY
+
+
+
+SELECT cidade, COUNT(*) AS quantidade_alunos
+FROM Alunos
+GROUP BY cidade
+HAVING COUNT(*) > 2;
+
+
+
+SELECT Cursos.nome_curso, AVG(Matriculas.nota) AS media_notas
+FROM Matriculas
+JOIN Cursos
+ON Matriculas.id_curso = Cursos.id_curso
+GROUP BY Cursos.nome_curso
+HAVING AVG(Matriculas.nota) > 8;
+
+
+SELECT Cursos.nome_curso, COUNT(*) AS quantidade_matriculas
+FROM Matriculas
+JOIN Cursos
+ON Matriculas.id_curso = Cursos.id_curso
+GROUP BY Cursos.nome_curso
+HAVING COUNT(*) > 2;
+
+
+SELECT Alunos.nome, SUM(Matriculas.faltas) AS total_faltas
+FROM Matriculas
+JOIN Alunos
+ON Matriculas.id_aluno = Alunos.id_aluno
+GROUP BY Alunos.nome
+HAVING SUM(Matriculas.faltas) > 5;
+
+
+SELECT Cursos.nome_curso, MIN(Matriculas.nota) AS menor_nota
+FROM Matriculas
+JOIN Cursos
+ON Matriculas.id_curso = Cursos.id_curso
+GROUP BY Cursos.nome_curso
+HAVING MIN(Matriculas.nota) > 6;
+
+SELECT *
+FROM Cursos
+ORDER BY carga_horaria DESC;
+
+SELECT *
+FROM Alunos
+ORDER BY idade DESC;
+
+SELECT Cursos.nome_curso, AVG(Matriculas.nota) AS media_notas
+FROM Matriculas
+JOIN Cursos
+ON Matriculas.id_curso = Cursos.id_curso
+GROUP BY Cursos.nome_curso
+ORDER BY media_notas DESC;
+
+
+SELECT cidade, COUNT(*) AS quantidade_alunos
+FROM Alunos
+GROUP BY cidade
+ORDER BY quantidade_alunos DESC;
+
+
+SELECT Alunos.nome, AVG(Matriculas.nota) AS media_notas
+FROM Matriculas
+JOIN Alunos
+ON Matriculas.id_aluno = Alunos.id_aluno
+GROUP BY Alunos.nome
+HAVING AVG(Matriculas.nota) > 7
+ORDER BY media_notas DESC;
 
 
 
