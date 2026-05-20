@@ -56,7 +56,7 @@ INSERT INTO Matriculas (id_aluno, id_curso, nota, faltas)VALUES
 (7,4,7.0,5),
 (8,2,9.5,1);
 
-Básicas
+-- Básicas
 
 SELECT * FROM Alunos;
 
