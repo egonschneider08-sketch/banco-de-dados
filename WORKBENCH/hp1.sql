@@ -266,43 +266,11 @@ GROUP BY Alunos.nome
 HAVING AVG(Matriculas.nota) > 7
 ORDER BY media_notas DESC;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- Questões — SUBQUERY (Subconsulta)
 
 SELECT * FROM Matriculas 
 WHERE nota = ( 
 SELECT MAX(nota)
 FROM Matriculas
 ); 
+
