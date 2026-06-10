@@ -1,26 +1,16 @@
-# Banco de Dados - WORKBENCH
+# Banco de Dados
 
-Este repositório contém uma coleção de scripts SQL e projetos desenvolvidos no ambiente do **MySQL Workbench**. O projeto engloba desde a modelagem de cenários reais (como sistemas de cinema, hospitais e lojas) até scripts de consultas estruturadas e automações de dados usando Inteligência Artificial.
-
----
-
-## 📂 Estrutura do Repositório
-
-Aqui está uma descrição do que você encontrará na pasta principal `WORKBENCH`:
-
-* **`populando_com_IA/`**: Diretório contendo scripts ou documentação voltada para a geração e inserção automatizada de dados sintéticos utilizando Inteligência Artificial.
-* **`buscar_sistema.sql`**: Scripts focados em consultas complexas, filtros e recuperação de dados (*queries* de busca).
-* **`cinema.sql`**: Estrutura de banco de dados e tabelas para o gerenciamento de um sistema de cinema (filmes, salas, ingressos, sessões).
-* **`exibindo_sistema.sql`**: Arquivo voltado para a criação de relatórios, views ou comandos de exibição de dados estruturados.
-* **`hospital.sql`**: Modelagem de dados para o ambiente hospitalar (médicos, pacientes, consultas e prontuários).
-* **`hp1.sql`**: Script de banco de dados específico (exercício prático ou banco temático).
-* **`lojaDB.sql` / `lojinhaMA78.sql`**: Modelagens focadas em comércio eletrônico, controle de estoque, clientes e vendas.
-* **`pedido.sql`**: Script dedicado ao gerenciamento, fluxo e registro de pedidos de compras/vendas.
+Este repositório foi criado para armazenar e organizar todos os projetos, scripts e estudos desenvolvidos ao longo da disciplina de **Banco de Dados**.
 
 ---
 
-## 🚀 Como Executar os Scripts
+##  Estrutura de Pastas
 
-Para rodar os arquivos deste repositório, você precisará de um SGBD instalado (recomendado: **MySQL**) e uma ferramenta de interface gráfica como o **MySQL Workbench**.
+* **`ATIVIDADES-PROVA/`**: Contém os arquivos e scripts criados durante as avaliações práticas e simulados da matéria.
+* **`MAPAS-CONCEITUAIS/`**: Resumos visuais e esquemas teóricos sobre modelagem e regras de negócio.
+* **`PROVA-CONCEITUAL/`**: Modelos e levantamentos iniciais de requisitos para a estrutura dos bancos.
+* **`WORKBENCH/`**: Scripts SQL (`.sql`) de criação, inserção e consultas executados no ambiente do MySQL Workbench.
+* **`DICIONARIO DE DADOS`**: Documentação com a descrição dos atributos e restrições das tabelas.
 
-   git clone [https://github.com/egonschneider08-sketch/banco-de-dados.git](https://github.com/egonschneider08-sketch/banco-de-dados.git)
+---
+Análise e desenvolvimento por **Matheus Egon Schneider**. 
