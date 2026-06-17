@@ -1,0 +1,65 @@
+1. Análise de Redundância
+A tabela atual repete informações desnecessariamente. Por exemplo:
+
+Dados do Cliente: O nome, telefone e cidade de "MetalSul" se repetem para cada peça utilizada na mesma Ordem de Serviço (OS).
+
+Dados do Técnico/Equipamento/Fornecedor: São replicados a cada linha de item de peça. Se um técnico realizar 100 ordens de serviço, seus dados pessoais serão gravados 100 vezes.
+
+2. Exemplos de Anomalias
+Inserção: Não é possível cadastrar um técnico novo no sistema sem que ele esteja associado a uma Ordem de Serviço.
+
+Atualização: Se o cliente "MetalSul" mudar de telefone, precisaríamos atualizar manualmente todas as linhas onde ele aparece. Se esquecermos uma, teremos dados inconsistentes.
+
+Exclusão: Se excluirmos a única OS realizada por um técnico específico, perderemos permanentemente os dados cadastrais desse técnico (nome, cargo, telefone).
+
+3. Dependências Funcionais (DFs)
+CodigoOS -> DataOS, Cliente, TelefoneCliente, CidadeCliente, Equipamento, CategoriaEquipamento, Tecnico, CargoTecnico, TelefoneTecnico.
+
+Peca -> Fornecedor, CidadeFornecedor, ValorPeca.
+
+(CodigoOS, Peca) -> QuantidadePeca.
+
+4, 5 e 6. Processo de Normalização e Estrutura Resultante
+Para atingir a 3FN, decompomos a tabela original em entidades menores para eliminar dependências parciais e transitivas.
+
+Entidades Resultantes
+CLIENTE: (id_cliente PK, nome, telefone, cidade)
+
+TECNICO: (id_tecnico PK, nome, cargo, telefone)
+
+EQUIPAMENTO: (id_equipamento PK, nome, categoria)
+
+FORNECEDOR: (id_fornecedor PK, nome, cidade)
+
+PECA: (id_peca PK, nome, valor, id_fornecedor FK)
+
+ORDEM_SERVICO: (id_os PK, data_os, id_cliente FK, id_equipamento FK, id_tecnico FK)
+
+ITEM_OS: (id_item PK, id_os FK, id_peca FK, quantidade)
+
+7. Relacionamentos (Modelo Lógico)
+Cliente para OS: 1:N (Um cliente pode ter várias OSs).
+
+Técnico para OS: 1:N (Um técnico pode realizar várias OSs).
+
+Equipamento para OS: 1:N (Um equipamento pode passar por várias manutenções).
+
+Fornecedor para Peça: 1:N (Um fornecedor fornece várias peças).
+
+OS para Peça: N:N (Uma OS utiliza várias peças; uma peça pode estar em várias OSs). Resolvido pela tabela associativa ITEM_OS.
+
+8. Justificativas Técnicas
+1FN: Eliminamos grupos repetidos e garantimos atomicidade.
+
+2FN: Removemos dependências parciais. Por exemplo, informações de Peça não dependem da OS, mas sim do ID da peça. Criamos tabelas específicas para evitar que atributos não-chave dependam apenas de parte da chave composta.
+
+3FN: Removemos dependências transitivas. O telefone do técnico dependia do ID do técnico, não da OS. Ao separar a entidade TÉCNICO, garantimos que cada atributo dependa apenas da chave primária da sua tabela.
+
+9. Problemas Eliminados
+Integridade: Atualizar o telefone de um cliente agora ocorre em um único lugar (CLIENTE).
+
+Consistência: A inserção de dados tornou-se independente (posso cadastrar técnicos e peças sem precisar de uma OS).
+
+Desempenho: Tabelas menores com chaves primárias indexadas tornam as consultas muito mais rápidas do que varrer uma tabela gigante e redundante.
+
+Manutenibilidade: O sistema tornou-se modular; se precisarmos adicionar uma nova funcionalidade (ex: estoque de peças), não precisaremos alterar a estrutura de Ordens de Serviço.

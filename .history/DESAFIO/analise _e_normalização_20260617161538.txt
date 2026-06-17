@@ -1,0 +1,10 @@
+Relatório de Normalização de Banco de Dados: Sistema de Manutenção
+Problema Identificado:
+O sistema apresentava uma estrutura de tabela única (flat file), gerando alta redundância e anomalias graves de manutenção.
+
+Anomalias: Impossibilidade de cadastrar entidades isoladas (técnicos/peças), risco de inconsistência em atualizações e perda de dados em exclusões (ex: perder cadastro de técnico ao apagar uma OS).
+
+Redundância: Repetição excessiva de dados de clientes, fornecedores e técnicos em cada item da OS.
+
+Solução Aplicada (Normalização 3FN):
+Para otimizar a estrutura, apliquei a decomposição em entidades normalizadas, garantindo que cada dado dependa exclusivamente de sua chave primária.

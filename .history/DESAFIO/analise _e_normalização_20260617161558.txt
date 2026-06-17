@@ -1,0 +1,36 @@
+Relatório de Normalização de Banco de Dados: Sistema de Manutenção
+Problema Identificado:
+O sistema apresentava uma estrutura de tabela única (flat file), gerando alta redundância e anomalias graves de manutenção.
+
+Anomalias: Impossibilidade de cadastrar entidades isoladas (técnicos/peças), risco de inconsistência em atualizações e perda de dados em exclusões (ex: perder cadastro de técnico ao apagar uma OS).
+
+Redundância: Repetição excessiva de dados de clientes, fornecedores e técnicos em cada item da OS.
+
+Solução Aplicada (Normalização 3FN):
+Para otimizar a estrutura, apliquei a decomposição em entidades normalizadas, garantindo que cada dado dependa exclusivamente de sua chave primária.
+
+Estrutura do Modelo:
+
+CLIENTE: (id_cliente PK, nome, telefone, cidade)
+
+TECNICO: (id_tecnico PK, nome, cargo, telefone)
+
+EQUIPAMENTO: (id_equipamento PK, nome, categoria)
+
+FORNECEDOR: (id_fornecedor PK, nome, cidade)
+
+PECA: (id_peca PK, nome, valor, id_fornecedor FK)
+
+ORDEM_SERVICO: (id_os PK, data, id_cliente FK, id_equipamento FK, id_tecnico FK)
+
+ITEM_OS: (id_item PK, id_os FK, id_peca FK, quantidade)
+
+Resultados Alcançados:
+
+Integridade Referencial: Eliminada a duplicidade; qualquer alteração de cadastro reflete automaticamente no sistema.
+
+Modularidade: É possível gerenciar cadastros de técnicos e peças de forma independente da emissão de ordens de serviço.
+
+Desempenho: A segmentação em tabelas menores com chaves indexadas otimiza o tempo de resposta em consultas complexas.
+
+Escalabilidade: A estrutura agora permite futuras expansões (como controle de estoque ou histórico de peças) sem impactar a arquitetura base.
