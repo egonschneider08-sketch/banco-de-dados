@@ -1,10 +1,4 @@
-#main a entrada principal do sistema.
-#inicia o sistema.
-#chama funções.
-
-from database import conectar
-
-def listar_funcionarios():
+def listar_setores():
     #conectar ao banco de dados
     conexao = conectar()
 
@@ -14,12 +8,9 @@ def listar_funcionarios():
     #executar uma consulta SQL para selecionar todos os registros da tabela "funcionario"
     sql = """
     select
-        f.id_funcionario,
-        f.nome,
-        f.cargo,
-        d.nome as setor
-    from funcionario f
-    join setor d on f.id_setor = d.id_setor
+        s.id_setor,
+        s.nome as setor
+    from setor s
     """
     #executar a consulta SQL
     cursor.execute(sql)
@@ -28,78 +19,78 @@ def listar_funcionarios():
     dados = cursor.fetchall()
 
     #exibir os resultados
-    for funcionario in dados:
-        print(funcionario)
+    for setor in dados:
+        print(setor)
 
     #fechar o cursor e a conexão com o banco de dados
     cursor.close()
     conexao.close()
 
-def cadastrar_funcionario(nome, cargo, id_setor):
+def cadastrar_setor(nome):
     #conectar ao banco de dados
     conexao = conectar()
 
     #criar um cursor para executar comandos SQL
     cursor = conexao.cursor()
 
-    #executar uma consulta SQL para inserir um novo registro na tabela "funcionario"
+    #executar uma consulta SQL para inserir um novo registro na tabela "setor"
     sql = """
-    insert into funcionario (nome, cargo, id_setor)
-    values (%s, %s, %s)
+    insert into setor (nome)
+    values (%s)
     """
-    valores = (nome, cargo, id_setor)
+    valores = (nome,)
     cursor.execute(sql, valores)
 
     #confirmar a transação
     conexao.commit()
-    print(f"Funcionário {nome} cadastrado com sucesso!")
+    print(f"Setor {nome} cadastrado com sucesso!")
 
     #fechar o cursor e a conexão com o banco de dados
     cursor.close()
     conexao.close()
 
-def atualizar_cargo_funcionario(id_funcionario, novo_cargo):
+def atualizar_setor(id_setor, novo_nome):
     #conectar ao banco de dados
     conexao = conectar()
 
     #criar um cursor para executar comandos SQL
     cursor = conexao.cursor()
 
-    #executar uma consulta SQL para atualizar o cargo de um funcionário
+    #executar uma consulta SQL para atualizar o nome de um setor
     sql = """
-    update funcionario
-    set cargo = %s
-    where id_funcionario = %s
+    update setor
+    set nome = %s
+    where id_setor = %s
     """
-    valores = (novo_cargo, id_funcionario)
+    valores = (novo_nome, id_setor)
     cursor.execute(sql, valores)
 
     #confirmar a transação
     conexao.commit()
-    print(f"Cargo do funcionário com ID {id_funcionario} atualizado para {novo_cargo}.")
+    print(f"Setor com ID {id_setor} atualizado para {novo_nome}.")
 
     #fechar o cursor e a conexão com o banco de dados
     cursor.close()
     conexao.close()
 
-def deletar_funcionario(id_funcionario):
+def deletar_setor(id_setor):
     #conectar ao banco de dados
     conexao = conectar()
 
     #criar um cursor para executar comandos SQL
     cursor = conexao.cursor()
 
-    #executar uma consulta SQL para deletar um funcionário
+    #executar uma consulta SQL para deletar um setor
     sql = """
-    delete from funcionario
-    where id_funcionario = %s
+    delete from setor
+    where id_setor = %s
     """
-    valores = (id_funcionario,)
+    valores = (id_setor,)
     cursor.execute(sql, valores)
 
     #confirmar a transação
     conexao.commit()
-    print(f"Funcionário com ID {id_funcionario} deletado com sucesso.")
+    print(f"Setor com ID {id_setor} deletado com sucesso.")
 
     #fechar o cursor e a conexão com o banco de dados
     cursor.close()
