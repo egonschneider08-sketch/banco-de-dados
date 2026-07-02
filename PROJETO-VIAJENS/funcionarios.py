@@ -58,3 +58,26 @@ def cadastrar_funcionario(nome, cargo, id_setor):
     cursor.close()
     conexao.close()
 
+def atualizar_cargo_funcionario(id_funcionario, novo_cargo):
+    #conectar ao banco de dados
+    conexao = conectar()
+
+    #criar um cursor para executar comandos SQL
+    cursor = conexao.cursor()
+
+    #executar uma consulta SQL para atualizar o cargo de um funcionário
+    sql = """
+    update funcionario
+    set cargo = %s
+    where id_funcionario = %s
+    """
+    valores = (novo_cargo, id_funcionario)
+    cursor.execute(sql, valores)
+
+    #confirmar a transação
+    conexao.commit()
+    print(f"Cargo do funcionário com ID {id_funcionario} atualizado para {novo_cargo}.")
+
+    #fechar o cursor e a conexão com o banco de dados
+    cursor.close()
+    conexao.close()
